@@ -12,8 +12,10 @@ They can view all the information about plants before purchasing.
 ![img](https://fyf.tac-cdn.net/images/products/small/P-440.jpg?auto=webp&quality=60&width=650)
 
 
-26-04-2024 : Creat backend and frontend environments with some basic code.
+26-04-2024 : Create backend and frontend environments with some basic code.
 
-27-04-2024 : Creat some routes in backend
+27-04-2024 : Create some routes in backend
 
 28-04-2024 : Connecting to mongodb
+
+I will keep on updating my day by day progress as it can change.
