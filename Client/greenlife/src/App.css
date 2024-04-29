@@ -4,20 +4,49 @@
   padding: 2rem;
   text-align: center;
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.mainnav{
+  display: flex;
+  align-items: center;
+  background-color: aquamarine;
+  height: 11%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.logo{
+  height: 75%;
+  width: 75%;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.login{
+  margin-left: 65%;
+  font-size: 20px;
 }
-
+.signup{
+  margin-left: 3%;
+  font-size: 20px;
+}
+.aboutus{
+  margin-left: 3%;
+  font-size: 20px;
+}
+.caption{
+  background-color: darkgreen;
+  color: white;
+  position: fixed;
+  top: 11%;
+  height: 5%;
+  width: 100%;
+  left: 0;
+  text-align: center;
+}
+.add{
+  margin-top: 10%;
+}
+.buy{
+  border: 1px solid rgb(250, 214, 9);
+  background-color: rgb(250, 214, 9);
+}
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
