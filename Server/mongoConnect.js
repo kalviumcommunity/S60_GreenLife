@@ -12,4 +12,11 @@ mongoose.connect(process.env.Connection_String)
     console.log("database error:",err)
 })
 }
-module.exports={Connection: ConnectDatabase}
+
+const plantSchema=mongoose.Schema({
+    PlantName:String,
+    PlantType:String,
+    PlantCost:String
+})
+const PlantModel=mongoose.model("plants",plantSchema)
+module.exports={Connection: ConnectDatabase, SchemaModel : PlantModel};
