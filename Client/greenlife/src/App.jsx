@@ -1,14 +1,21 @@
-import './App.css'
+import './App.css';
+import {Routes,Route} from "react-router-dom";
+import Login from './Components/Login';
+import Main from "./Components/Home";
+import Signup from './Components/Signup';
+import Blog from "./Components/Blog";
+import Order from "./Components/Order"
 
 function App() {
 
   return (
-    <>
-   <h1>Welcome to GreenLife</h1>
-   <p><i>Create a spring in your life</i></p>
-   <img src="https://media.designcafe.com/wp-content/uploads/2020/04/14090801/home-and-garden-interior-design-pictures-pretty-pinks.jpg" alt="" />
-   <img src="https://media.designcafe.com/wp-content/uploads/2020/04/14091315/small-home-garden-design-where-you-can-quarantine.jpg" alt="" />
-    </>
+  <Routes>
+    <Route path='/login' element={<Login/>}></Route>
+    <Route path='/' element={<Main/>}></Route>
+    <Route path='/Signup' element={<Signup/>}></Route>
+    <Route path='/Blog' element={<Blog/>}></Route>
+    <Route path='/order' element={<Order/>}></Route>
+  </Routes>
   )
 }
 
