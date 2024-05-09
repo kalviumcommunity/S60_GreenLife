@@ -30,8 +30,8 @@ const plantSchema=mongoose.Schema({
 })
 const PlantModel=mongoose.model("plants",plantSchema)
 
-PlantModel.insertMany(PlantsData)
-.then(()=>console.log("plants data is sended to database"))
-.catch((err)=>console.log("database error:",err))
+// PlantModel.insertMany(PlantsData)
+// .then(()=>console.log("plants data is sended to database"))
+// .catch((err)=>console.log("database error:",err))
 
 module.exports={Connection: ConnectDatabase, SchemaModel : PlantModel};
