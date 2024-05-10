@@ -28,10 +28,17 @@ const plantSchema=mongoose.Schema({
     NeedOfSunlight : String,
     PlantImage : String
 })
+
+const UserSchema=mongoose.Schema({
+    UserName : String,
+    Gmail : String,
+    Password : String
+})
 const PlantModel=mongoose.model("plants",plantSchema)
+const UserModel=mongoose.model("Users",UserSchema)
 
 // PlantModel.insertMany(PlantsData)
 // .then(()=>console.log("plants data is sended to database"))
 // .catch((err)=>console.log("database error:",err))
 
-module.exports={Connection: ConnectDatabase, SchemaModel : PlantModel};
+module.exports={Connection: ConnectDatabase, SchemaModel : PlantModel, UsersModel:UserModel};
