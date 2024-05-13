@@ -13,8 +13,8 @@ function Navbar(){
           <NavLink to="/Signup">
           <p className='cursor-pointer text-xl'>SignUp</p>
           </NavLink>
-          <NavLink to="/Blog">
-          <p className='cursor-pointer text-xl'>Blog</p>
+          <NavLink to="/Experience">
+          <p className='cursor-pointer text-xl'>Experiences</p>
           </NavLink>
         </nav>
         <div className='bg-green-900 text-white fixed w-full left-0 text-center h-30 top-12'>Create a spring in your life.</div>
