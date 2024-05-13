@@ -1,6 +1,6 @@
 import Navbar from "./Navbar"
 
-function Blog(){
+function Experience(){
     return(
         <div>
             <div>
@@ -10,4 +10,4 @@ function Blog(){
         </div>
     )
 }
-export default Blog
+export default Experience
