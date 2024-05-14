@@ -2,7 +2,6 @@ const PlantsData=[
     {
         ScientificName : "Zamioculcas zamiifolia" ,
        PlantName: "Zuzu plant",
-       PlantType : "Indoor Plant",
        FamilyName : "Araceae",
        PlantCost : "Rs.259",
        ReferenceLink : "https://en.wikipedia.org/wiki/Zamioculcas",
@@ -11,12 +10,12 @@ const PlantsData=[
        Caution : "Not pet friendly and do not allow kids to touch the plant.",
        WateringTips : "Water once in two weeks",
        NeedOfSunlight : "Need low sunlight, place it 5-6 feet away of sunlight place or place it in low light area",
-       PlantImage : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfKG7WECCF-BF-H9POmXjfNSX3VitrP1yRcs-XR9Jeng&s"
+       PlantImage : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfKG7WECCF-BF-H9POmXjfNSX3VitrP1yRcs-XR9Jeng&s",
+       PlantFilter : ["Air Purifying Plants","Indoor Plants"]
     },
     {
         ScientificName : "Adenium" ,
         PlantName : "Desert Rose",
-        PlantType : "Outdoor Plant",
         FamilyName : "Apocynaceae",
         PlantCost : "Rs.299",
         ReferenceLink : "https://en.wikipedia.org/wiki/Adenium",
@@ -25,7 +24,8 @@ const PlantsData=[
         Caution : "Not pet friendly and do not allow kids to touch the plant.",
         WateringTips : "Water 3-4 times in a week.",
         NeedOfSunlight : "Need 5-6 hours full sunlight, place it in sunlight place.",
-        PlantImage : "https://hgtvhome.sndimg.com/content/dam/images/hgtv/products/2020/3/11/8/rx_amazon_two-desert-rose-bonsai-plants.jpeg.rend.hgtvcom.616.462.suffix/1583956224724.jpeg"
+        PlantImage : "https://hgtvhome.sndimg.com/content/dam/images/hgtv/products/2020/3/11/8/rx_amazon_two-desert-rose-bonsai-plants.jpeg.rend.hgtvcom.616.462.suffix/1583956224724.jpeg",
+        PlantFilter : ["Succulents","Medicinal Plants","Outdoor Plants"]
      },
      {
         ScientificName : "Rose of Sharon" ,
@@ -39,12 +39,12 @@ const PlantsData=[
         Caution : "you should be careful when the climate is too hot. High temperatures and heat can increase the risk of sunburn and overheating, thus producing droopy leaves.",
         WateringTips : "For the first week after planting, water daily, tapering off to once every two days in the second week, and then about twice a week thereafter, when there is no rainfall.",
         NeedOfSunlight : "In general, the more sun this plant gets, the better. Hibiscus rosa-sinensis prefer full sun but will tolerate light shade.",
-        PlantImage : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA9bjKbQ4l9IZzd-yF80c6GsZshDD1sSl1s478acPCL9SpMM1j-zOoh_L3augheCPtYuo&usqp=CAU"
+        PlantImage : "https://m.media-amazon.com/images/I/61qX+o5199L._AC_UF1000,1000_QL80_.jpg",
+        PlantFilter : ["Flowering Plants","Medicinal Plants","Outdoor Plants","Pet Friendly Plants"]
      },
      {
         ScientificName : "Hydrangea" ,
         PlantName : "Hortensia",
-        PlantType : "Outdoor Plant",
         FamilyName : "Hydrangeaceae",
         PlantCost : "Rs.299",
         ReferenceLink : "https://en.wikipedia.org/wiki/Hydrangea",
@@ -53,12 +53,12 @@ const PlantsData=[
         Caution : "Not pet friendly.",
         WateringTips : "watering when the first inch of soil feels dry to the touch.",
         NeedOfSunlight : "Ideally receiving sun in the morning hours and shade in the afternoon. Needs partial sunlight",
-        PlantImage : "https://img.crocdn.co.uk/images/products2/pl/20/00/03/44/pl2000034434_card3_lg.jpg"
+        PlantImage : "https://img.crocdn.co.uk/images/products2/pl/20/00/03/44/pl2000034434_card3_lg.jpg",
+        PlantFilter : ["Flowering Plants","Outdoor Plants","Medicinal Plants"]
      },
      {
         ScientificName : "Prayer Plant" ,
         PlantName : "Maranta leuconeura",
-        PlantType : "Indoor Plant",
         FamilyName : "Marantaceae",
         PlantCost : "Rs.320",
         ReferenceLink : "https://en.wikipedia.org/wiki/Maranta_leuconeura",
@@ -67,12 +67,12 @@ const PlantsData=[
         Caution : "avoid waterlogging the soil and letting water sit on the leaves.",
         WateringTips : "Water every 1-2 weeks, allowing the soil to dry out half way down between waterings",
         NeedOfSunlight : "Prayer plants can tolerate low light conditions, they do best in bright, indirect light. They don't like direct sunlight. Prefer a place with high humidity.",
-        PlantImage : "https://img.staticmb.com/mbcontent/images/uploads/2023/11/prayer-plant%20(1).jpg"
+        PlantImage : "https://img.staticmb.com/mbcontent/images/uploads/2023/11/prayer-plant%20(1).jpg",
+        PlantFilter : ["Indoor Plants","Air Purifying Plants","Pet Friendly Plants"]
      },
      {
         ScientificName : "Blue false indigo" ,
         PlantName : "Baptisia australis",
-        PlantType : "Outdoor Plant",
         FamilyName : "Fabaceae",
         PlantCost : "Rs.282",
         ReferenceLink : "https://en.wikipedia.org/wiki/Baptisia_australis",
@@ -81,12 +81,12 @@ const PlantsData=[
         Caution : "This plant is listed as toxic. If ingested it can cause blurred vision, vomiting and vertigo.",
         WateringTips : "Keep a false indigo watered regularly for the first year, but after this, it will do well with about 1 inch of water every couple of weeks.",
         NeedOfSunlight : "Blue false indigo does best in full sun, although it can tolerate light shade.",
-        PlantImage : "https://growitbuildit.com/wp-content/uploads/2022/02/baptisia-australis-year-five.jpg"
+        PlantImage : "https://www.butterflyeffectfarm.com/wp-content/uploads/2023/03/blue-false-indigo-630x630.jpeg",
+        PlantFilter : ["Outdoor Plants"]
      },
      {
         ScientificName : "Thuja" ,
         PlantName : "Thuja plant",
-        PlantType : "Indoor Plant",
         FamilyName : "Cupressaceae",
         PlantCost : "Rs.149",
         ReferenceLink : "https://en.wikipedia.org/wiki/Thuja",
@@ -95,9 +95,52 @@ const PlantsData=[
         Caution : "Within the first two years from planting, Thuja cultivars will not have a fully developed root system that would allow it to support itself.",
         WateringTips : "Water a plant when the soil feels dry to touch.",
         NeedOfSunlight : "Need 5-6 hours full sunlight, place it in sunlight place.",
-        PlantImage : "https://nurserylive.com/cdn/shop/products/nurserylive-arborvitae-plant.jpg?v=1634213586"
-     }
+        PlantImage : "https://nurserylive.com/cdn/shop/products/nurserylive-arborvitae-plant.jpg?v=1634213586",
+        PlantFilter : ["Indoor Plants"]
+     },
+     {
+      ScientificName : "Epipremnum aureum" ,
+      PlantName : "Golden Pothos",
+      FamilyName : "Araceae",
+      PlantCost : "Rs.182",
+      ReferenceLink : "https://en.wikipedia.org/wiki/Epipremnum_aureum",
+      Uses : "Air Cleaner. NASA includes the Golden Pothos plant on a list of recommended plants for air purification. It removes benzene, formaldehyde, toluene, and xylene from the air. In fact, the NASA study saw that Golden Pothos was one of the best household plants for removing toxins!",
+      Toxicity : "Toxic to pets and children",
+      Caution : "This plant contains invisible needle-shaped crystals, which make the golden pothos toxic to cats, dogs and people, especially to young children and babies. So, it is best to keep the plant out of reach from your furry friends and kids.",
+      WateringTips : "Water your Pothos every 1-2 weeks, allowing soil to dry out between waterings.",
+      NeedOfSunlight : "Pothos plants thrive in bright, indirect light, but they can tolerate medium to low indirect light.",
+      PlantImage : "https://nouveauraw.com/wp-content/uploads/2020/01/Pothos-Golden-Pothos-plant-800-great-coloring.png",
+      PlantFilter : ["Indoor Plants","Outdoor Plants"]
+   },
+   {
+      ScientificName : "Chlorophytum comosum" ,
+      PlantName : "Spider plant",
+      FamilyName : "Asparagaceae",
+      PlantCost : "Rs.270",
+      ReferenceLink : "https://en.wikipedia.org/wiki/Chlorophytum_comosum",
+      Uses : "Studies have shown that spider plant is quite effective in cleaning indoor air by absorbing chemicals including formaldehyde, xylene, benzene, and carbon monoxide in homes or offices. Thick, fleshy roots allow spider plant to tolerate inconsistent watering.",
+      Toxicity : "Non-toxic",
+      Caution : "They do not tolerate low light conditions, so make sure not to place them indoors. If you notice that your spider plant's leaves are turning yellow or brown, it may be getting too much direct light or not enough light. To remedy this, adjust the placement of your plant to get the right amount of light it needs.",
+      WateringTips : "Try to water your spider plant about once a week.",
+      NeedOfSunlight : "A spider plant likes bright, indirect light. Avoid direct sunlight as it has the potential to scorch the leaves.",
+      PlantImage : "https://nurtureplant.in/wp-content/uploads/2019/09/spider-plant.jpg",
+      PlantFilter : ["Outdoor Plants","Indoor Plants"]
+   },
+   {
+      ScientificName : "Spathiphyllum" ,
+      PlantName : "Peace Lily",
 
+      FamilyName : "Araceae",
+      PlantCost : "Rs.158",
+      ReferenceLink : "https://en.wikipedia.org/wiki/Spathiphyllum",
+      Uses : "Air Purification Properties, Natural Air Freshener, Non-Allergenic Flowers, Great for Boosting Mental Health, Improves Sleep Quality and A Low Maintenance Plant",
+      Toxicity : "Mildly toxic to humans and other animals when ingested.",
+      Caution : "Peace lilies are susceptible to root rot, so it's very important to make sure the plant has a chance to dry out between waterings and that the container it lives in drains well. Choose a container with drainage holes and place a saucer under to catch water that drains out.",
+      WateringTips : "Whenever the top inch of soil is dry, water the plant until the overflow starts to come out of the bottom of the container.",
+      NeedOfSunlight : "Peace lilies do very well in low-light situations, even flowering with as little as two to four hours of sunlight per day.",
+      PlantImage : "https://m.media-amazon.com/images/I/41XTG8ZsUUL._AC_UF1000,1000_QL80_.jpg",
+      PlantFilter : ["Indoor Plants"]
+   }
 
     ]
 
