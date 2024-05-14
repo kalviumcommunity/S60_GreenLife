@@ -5,6 +5,7 @@ import Main from "./Components/Home";
 import Signup from './Components/Signup';
 import Experience from "./Components/Experience";
 import Order from "./Components/Order"
+import ViewGarden from './Components/ViewGarden';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
     <Route path='/Signup' element={<Signup/>}></Route>
     <Route path='/Experience' element={<Experience/>}></Route>
     <Route path='/order' element={<Order/>}></Route>
+    <Route path='/YourGarden' element={<ViewGarden/>}></Route>
   </Routes>
   )
 }
