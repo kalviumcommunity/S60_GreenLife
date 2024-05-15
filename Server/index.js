@@ -1,8 +1,9 @@
 const express=require("express")
 const App=express()
+const cors=require("cors");
 const {Connection,SchemaModel}=require("./mongoConnect")
 const RoutesFile=require("./routes")
-
+App.use(cors());
 App.use("/",RoutesFile)
 
 function RecordStatus(){
