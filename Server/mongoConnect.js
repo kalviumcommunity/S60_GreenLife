@@ -17,7 +17,7 @@ mongoose.connect(process.env.Connection_String)
 const plantSchema=mongoose.Schema({
     PlantName:String,
     ScientificName:String,
-    PlantType:String,
+    PlantFilter:[String],
     FamilyName:String,
     PlantCost:String,
     ReferenceLink:String,
