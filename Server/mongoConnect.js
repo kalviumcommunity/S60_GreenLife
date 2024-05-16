@@ -1,6 +1,7 @@
 const mongoose=require("mongoose");
 const dotenv=require("dotenv");
-const PlantsData = require("./PlantsData")
+const PlantsData = require("./PlantsData");
+const Experience=require("./Expdata")
 dotenv.config()
 
 function ConnectDatabase(){
@@ -34,11 +35,17 @@ const UserSchema=mongoose.Schema({
     Gmail : String,
     Password : String
 })
+
+const ExpSchema=mongoose.Schema({
+    experience : String,
+    image : String
+})
 const PlantModel=mongoose.model("plants",plantSchema)
 const UserModel=mongoose.model("Users",UserSchema)
+const ExpModel=mongoose.model("Experience",ExpSchema)
 
-// PlantModel.insertMany(PlantsData)
-// .then(()=>console.log("plants data is sended to database"))
+// ExpModel.insertMany(Experience)
+// .then(()=>console.log("exp data is sended to database"))
 // .catch((err)=>console.log("database error:",err))
 
-module.exports={Connection: ConnectDatabase, SchemaModel : PlantModel, UsersModel:UserModel};
+module.exports={Connection: ConnectDatabase, SchemaModel : PlantModel, UsersModel:UserModel, ExpModel:ExpModel};
