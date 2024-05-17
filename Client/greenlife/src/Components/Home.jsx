@@ -5,7 +5,9 @@ function Main(){
     return(
         <div className='mainbody'>
          <Navbar/>
-        <div><img src="https://i.postimg.cc/K8DBCzvG/Add1.png" alt="" className='mt-30px h-400px w-full'/></div>
+         <div>
+            <img src="https://i.postimg.cc/K8DBCzvG/Add1.png" alt=""/>
+        </div>
         <Link to="/order">
         <button className='border-yellow-400 bg-yellow-400 m-10'>Start Planting now!!</button>
         </Link>

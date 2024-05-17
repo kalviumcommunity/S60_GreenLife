@@ -11,7 +11,8 @@ const PlantsData=[
       WateringTips : "Water once in two weeks",
       NeedOfSunlight : "Need low sunlight, place it 5-6 feet away of sunlight place or place it in low light area",
       PlantImage : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfKG7WECCF-BF-H9POmXjfNSX3VitrP1yRcs-XR9Jeng&s",
-      PlantFilter : ["Air Purifying Plants","Indoor Plants","Succulents"]
+      PlantFilter : ["Air Purifying Plants","Indoor Plants","Succulents"],
+      Rating : 4
    },
    {
        ScientificName : "Adenium" ,
@@ -25,7 +26,8 @@ const PlantsData=[
        WateringTips : "Water 3-4 times in a week.",
        NeedOfSunlight : "Need 5-6 hours full sunlight, place it in sunlight place.",
        PlantImage : "https://hgtvhome.sndimg.com/content/dam/images/hgtv/products/2020/3/11/8/rx_amazon_two-desert-rose-bonsai-plants.jpeg.rend.hgtvcom.616.462.suffix/1583956224724.jpeg",
-       PlantFilter : ["Succulents","Medicinal Plants","Outdoor Plants"]
+       PlantFilter : ["Succulents","Medicinal Plants","Outdoor Plants"],
+       Rating : 4
     },
     {
        ScientificName : "Rose of Sharon" ,
@@ -40,7 +42,8 @@ const PlantsData=[
        WateringTips : "For the first week after planting, water daily, tapering off to once every two days in the second week, and then about twice a week thereafter, when there is no rainfall.",
        NeedOfSunlight : "In general, the more sun this plant gets, the better. Hibiscus rosa-sinensis prefer full sun but will tolerate light shade.",
        PlantImage : "https://m.media-amazon.com/images/I/61qX+o5199L._AC_UF1000,1000_QL80_.jpg",
-       PlantFilter : ["Flowering Plants","Medicinal Plants","Outdoor Plants","Pet Friendly Plants"]
+       PlantFilter : ["Flowering Plants","Medicinal Plants","Outdoor Plants","Pet Friendly Plants"],
+       Rating : 5
     },
     {
        ScientificName : "Hydrangea" ,
@@ -54,7 +57,8 @@ const PlantsData=[
        WateringTips : "watering when the first inch of soil feels dry to the touch.",
        NeedOfSunlight : "Ideally receiving sun in the morning hours and shade in the afternoon. Needs partial sunlight",
        PlantImage : "https://img.crocdn.co.uk/images/products2/pl/20/00/03/44/pl2000034434_card3_lg.jpg",
-       PlantFilter : ["Flowering Plants","Outdoor Plants","Medicinal Plants"]
+       PlantFilter : ["Flowering Plants","Outdoor Plants","Medicinal Plants"],
+       Rating : 5
     },
     {
        ScientificName : "Prayer Plant" ,
@@ -68,7 +72,8 @@ const PlantsData=[
        WateringTips : "Water every 1-2 weeks, allowing the soil to dry out half way down between waterings",
        NeedOfSunlight : "Prayer plants can tolerate low light conditions, they do best in bright, indirect light. They don't like direct sunlight. Prefer a place with high humidity.",
        PlantImage : "https://img.staticmb.com/mbcontent/images/uploads/2023/11/prayer-plant%20(1).jpg",
-       PlantFilter : ["Indoor Plants","Air Purifying Plants","Pet Friendly Plants"]
+       PlantFilter : ["Indoor Plants","Air Purifying Plants","Pet Friendly Plants"],
+       Rating : 4
     },
     {
        ScientificName : "Blue false indigo" ,
@@ -82,7 +87,8 @@ const PlantsData=[
        WateringTips : "Keep a false indigo watered regularly for the first year, but after this, it will do well with about 1 inch of water every couple of weeks.",
        NeedOfSunlight : "Blue false indigo does best in full sun, although it can tolerate light shade.",
        PlantImage : "https://www.butterflyeffectfarm.com/wp-content/uploads/2023/03/blue-false-indigo-630x630.jpeg",
-       PlantFilter : ["Outdoor Plants","Medicinal Plants","Flowering Plants"]
+       PlantFilter : ["Outdoor Plants","Medicinal Plants","Flowering Plants"],
+       Rating : 4
     },
     {
        ScientificName : "Thuja" ,
@@ -96,7 +102,8 @@ const PlantsData=[
        WateringTips : "Water a plant when the soil feels dry to touch.",
        NeedOfSunlight : "Need 5-6 hours full sunlight, place it in sunlight place.",
        PlantImage : "https://nurserylive.com/cdn/shop/products/nurserylive-arborvitae-plant.jpg?v=1634213586",
-       PlantFilter : ["Indoor Plants","Medicinal Plants"]
+       PlantFilter : ["Indoor Plants","Medicinal Plants"],
+       Rating : 4
     },
     {
      ScientificName : "Epipremnum aureum" ,
@@ -110,7 +117,8 @@ const PlantsData=[
      WateringTips : "Water your Pothos every 1-2 weeks, allowing soil to dry out between waterings.",
      NeedOfSunlight : "Pothos plants thrive in bright, indirect light, but they can tolerate medium to low indirect light.",
      PlantImage : "https://nouveauraw.com/wp-content/uploads/2020/01/Pothos-Golden-Pothos-plant-800-great-coloring.png",
-     PlantFilter : ["Indoor Plants","Outdoor Plants","Air Purifying Plants"]
+     PlantFilter : ["Indoor Plants","Outdoor Plants","Air Purifying Plants"],
+     Rating : 5
   },
   {
      ScientificName : "Chlorophytum comosum" ,
@@ -124,7 +132,8 @@ const PlantsData=[
      WateringTips : "Try to water your spider plant about once a week.",
      NeedOfSunlight : "A spider plant likes bright, indirect light. Avoid direct sunlight as it has the potential to scorch the leaves.",
      PlantImage : "https://nurtureplant.in/wp-content/uploads/2019/09/spider-plant.jpg",
-     PlantFilter : ["Outdoor Plants","Indoor Plants","Pet Friendly Plants","Air Purifying Plants"]
+     PlantFilter : ["Outdoor Plants","Indoor Plants","Pet Friendly Plants","Air Purifying Plants"],
+     Rating : 5
   },
   {
      ScientificName : "Spathiphyllum" ,
@@ -138,7 +147,8 @@ const PlantsData=[
      WateringTips : "Whenever the top inch of soil is dry, water the plant until the overflow starts to come out of the bottom of the container.",
      NeedOfSunlight : "Peace lilies do very well in low-light situations, even flowering with as little as two to four hours of sunlight per day.",
      PlantImage : "https://m.media-amazon.com/images/I/41XTG8ZsUUL._AC_UF1000,1000_QL80_.jpg",
-     PlantFilter : ["Indoor Plants","Air Purifying Plants","Flowering Plants"]
+     PlantFilter : ["Indoor Plants","Air Purifying Plants","Flowering Plants"],
+     Rating : 4
   }
 
    ]
