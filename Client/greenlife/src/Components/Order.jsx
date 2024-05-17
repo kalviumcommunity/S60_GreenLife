@@ -24,6 +24,17 @@ function Order(){
          selectedopt(event.target.value);
     }
 
+    function GiveRatings(x){
+        let ratings="";
+        for(let i=0; i<5; i++){
+            if(i<x){
+                ratings += "⭐"
+            }
+        }
+        return ratings;
+
+    }
+
     return(
         <div>
             <Navbar/>
@@ -37,6 +48,7 @@ function Order(){
                     <div key={eachplant._id} className="border-4 rounded-3xl m-10 p-10">
                     <img src={eachplant.PlantImage} alt="" className="h-50 w-70  rounded-3xl" />
                     <b>{eachplant.PlantName}</b>
+                    <p>{GiveRatings(eachplant.Rating)}</p>
                     <p>{eachplant.PlantCost}</p>
                     <p className="text-blue-500 cursor-pointer">Know More</p>
                     <button className="bg-green-400 text-white">Add to your garden</button>

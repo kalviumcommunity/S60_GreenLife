@@ -26,7 +26,6 @@ useEffect(()=>{
             return(
                 <div key={user._id}>
                   <p className="m-10">{user.experience}</p>
-                  <input type="text" className="box-border w-64 p-2 border-2"/>
                 </div>
             )
         })}

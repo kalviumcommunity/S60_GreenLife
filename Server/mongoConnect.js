@@ -27,7 +27,8 @@ const plantSchema=mongoose.Schema({
     Cautions : String,
     WateringTips : String,
     NeedOfSunlight : String,
-    PlantImage : String
+    PlantImage : String,
+    Rating:Number
 })
 
 const UserSchema=mongoose.Schema({
@@ -44,7 +45,7 @@ const PlantModel=mongoose.model("plants",plantSchema)
 const UserModel=mongoose.model("Users",UserSchema)
 const ExpModel=mongoose.model("Experience",ExpSchema)
 
-// ExpModel.insertMany(Experience)
+// PlantModel.insertMany(PlantsData)
 // .then(()=>console.log("exp data is sended to database"))
 // .catch((err)=>console.log("database error:",err))
 
