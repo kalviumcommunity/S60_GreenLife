@@ -45,7 +45,7 @@ const PlantModel=mongoose.model("plants",plantSchema)
 const UserModel=mongoose.model("Users",UserSchema)
 const ExpModel=mongoose.model("Experience",ExpSchema)
 
-// PlantModel.insertMany(PlantsData)
+// ExpModel.insertMany(Experience)
 // .then(()=>console.log("exp data is sended to database"))
 // .catch((err)=>console.log("database error:",err))
 
