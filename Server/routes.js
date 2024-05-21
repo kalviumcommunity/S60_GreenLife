@@ -2,6 +2,8 @@ const express=require("express");
 const app=express();
 const {SchemaModel,ExpModel}=require("./mongoConnect")
 
+app.use(express.json())
+
 app.get("/get",(request,response)=>{
     // response.send("This is a get request")
     SchemaModel.find({})
@@ -13,6 +15,12 @@ app.get("/getexp",(request,response)=>{
     ExpModel.find({})
     .then((listexp)=>{response.json({listexp})})
     .catch((err)=>{response.json({err})})
+})
+
+app.post("/postexp",async (request,response)=>{
+    ExpModel.create(request.body)
+    .then(data=>{response.json(data)})
+    .catch(err=>{response.json(err)})
 })
 
 app.put("/put/:id",(request,response)=>{

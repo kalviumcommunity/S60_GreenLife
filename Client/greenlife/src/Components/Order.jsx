@@ -4,9 +4,11 @@ import { useState,useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+
 function Order(){
-    const[opt,selectedopt]=useState("All Plants")
+    const[opt,selectedopt]=useState("All Plants");
     const[PlantsData,setplantsdata]=useState([]);
+   
 
     useEffect(()=>{
         const data=async()=>{
@@ -24,12 +26,15 @@ function Order(){
          selectedopt(event.target.value);
     }
 
+
     function GiveRatings(x){
         let ratings="";
         for(let i=0; i<5; i++){
             if(i<x){
                 ratings += "⭐"
             }
+            else{
+                ratings+="☆"        }
         }
         return ratings;
 
