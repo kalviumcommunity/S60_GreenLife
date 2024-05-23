@@ -23,6 +23,13 @@ app.post("/postexp",async (request,response)=>{
     .catch(err=>{response.json(err)})
 })
 
+app.delete("/deleteExp/:id", async(request,response)=>{
+    const id=request.params.id;
+    ExpModel.findByIdAndDelete({_id : id})
+    .then(data=>{response.json(data)})
+    .catch(err=>{response.json(err)})
+})
+
 app.put("/put/:id",(request,response)=>{
     response.send("This is a put request")
 })
@@ -31,7 +38,7 @@ app.post("/post",(request,response)=>{
     response.send("This  is a post request")
 })
 
-app.delete("/delete",(request,response)=>{
+app.delete("/delete/:id",(request,response)=>{
     response.send("This is a delete request")
 })
 

@@ -52,6 +52,16 @@ const postUrExp=async (event)=>{
 }
 
 }
+
+const deleteRequest=(id)=>{
+try{
+    axios.delete(`http://localhost:3000/deleteExp/${id}`)
+    setusers(users.filter((user)=>user._id!==id))
+
+}catch(err){
+    console.log("delete err:",err)
+}
+}
     return(
         <div>
             <div>
@@ -63,6 +73,10 @@ const postUrExp=async (event)=>{
                 <div key={user._id} className="rounded-3xl border-2 mt-20 p-4 flex h-72 bg-slate-100">
                   <p className="m-5">{user.experience}</p>
                  <img src={user.image} alt="" className="h-50 w-70 rounded-3xl"/>
+                 <div>
+                 <button className="mb-20">Update</button>
+                 <button onClick={()=>deleteRequest(user._id)} className="mt-20">Delete</button>
+                 </div>
                 </div>
             )
         })}
