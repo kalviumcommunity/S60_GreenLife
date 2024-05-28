@@ -30,6 +30,16 @@ app.delete("/deleteExp/:id", async(request,response)=>{
     .catch(err=>{response.json(err)})
 })
 
+app.put("/updateExp/:id",(request,response)=>{
+    const id=request.params.id;
+    ExpModel.findByIdAndUpdate(id,{
+            experience : request.body.experience,
+            image : request.body.image
+    })
+    .then(data=>{response.json(data)})
+    .catch(err=>{response.json(err)})
+})
+
 app.put("/put/:id",(request,response)=>{
     response.send("This is a put request")
 })
