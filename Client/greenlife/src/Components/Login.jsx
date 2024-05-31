@@ -23,7 +23,7 @@ function Login(){
             <NavLink to="/order">
             <button className="bg-yellow-300">Login</button>
             </NavLink>
-            <p>If, you did not have a account prefer to <a href="/signup">Signup</a></p>
+            <p>Don't have a account, prefer to <a href="/signup">Signup</a></p>
         </div>
         <div className="bg-right bg-green-400 h-screen w-full"></div>
         </div>

@@ -19,7 +19,7 @@ useEffect(()=>{
         setusers(dataofusers.data.listexp)
         }
         catch(err){
-            console.log("err exp front:",err)
+            console.log("err exp get:",err)
         }
     }
     getusers()
@@ -49,7 +49,7 @@ const UpdateRequest=async()=>{
     setid(null);
 }
     catch(err){
-console.log("Update request err:",err) 
+console.log("Update Exp err:",err) 
     }
 }
 
@@ -81,7 +81,7 @@ const postUrExp=async (event)=>{
         setusers([...users,newdata.data])
         console.log(newdata);
 }catch(err){
-    console.log("err:",err)
+    console.log("PostExp err:",err)
 }
 
 }
@@ -92,7 +92,7 @@ try{
     setusers(users.filter((user)=>user._id!==id))
 
 }catch(err){
-    console.log("delete err:",err)
+    console.log("delete Exp err:",err)
 }
 }
 

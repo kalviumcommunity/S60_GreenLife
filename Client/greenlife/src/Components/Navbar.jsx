@@ -10,9 +10,6 @@ function Navbar(){
           <NavLink to="/login">
           <p className=' text-xl cursor-pointer'>Login</p>
           </NavLink>
-          <NavLink to="/Signup">
-          <p className='cursor-pointer text-xl'>SignUp</p>
-          </NavLink>
           <NavLink to="/Experience">
           <p className='cursor-pointer text-xl'>Experiences</p>
           </NavLink>
