@@ -1,8 +1,10 @@
 const express=require("express");
 const app=express();
-const {SchemaModel,ExpModel,UsersModel}=require("./mongoConnect")
+const {SchemaModel,ExpModel}=require("./mongoConnect");
+const UsersRoutes=require("./Routers/UsersRoutes")
 
 app.use(express.json())
+app.use("/api/users",UsersRoutes)
 
 app.get("/get",(request,response)=>{
     // response.send("This is a get request")
@@ -36,12 +38,6 @@ app.put("/updateExp/:id",(request,response)=>{
             experience : request.body.experience,
             image : request.body.image
     })
-    .then(data=>{response.json(data)})
-    .catch(err=>{response.json(err)})
-})
-
-app.post("/postuser",(request,response)=>{
-    UsersModel.create(request.body)
     .then(data=>{response.json(data)})
     .catch(err=>{response.json(err)})
 })

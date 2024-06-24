@@ -1,7 +1,7 @@
 const mongoose=require("mongoose");
 const dotenv=require("dotenv");
-const PlantsData = require("./PlantsData");
-const Experience=require("./Expdata")
+const PlantsData = require("./Data/PlantsData");
+const Experience=require("./Data/Expdata")
 dotenv.config()
 
 function ConnectDatabase(){
@@ -32,9 +32,9 @@ const plantSchema=mongoose.Schema({
 })
 
 const UserSchema=mongoose.Schema({
-    UserName : String,
-    Gmail : String,
-    Password : String
+    UserName : {type : String},
+    Gmail : {type : String, required : true, unique : true, match: [/.+\@.+\..+/, "Please fill a valid email address"]},
+    Password : {type : String, required : true, minlength: [5, "Password should be at least 2 characters long"] }
 })
 
 const ExpSchema=mongoose.Schema({
