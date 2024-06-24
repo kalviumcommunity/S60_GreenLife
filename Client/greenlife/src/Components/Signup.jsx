@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Navbar from "./Navbar";
 import axios from "axios";
@@ -9,6 +9,7 @@ const[Gmail,setgmail]=useState("")
 const[Password,setpassword]=useState("")
 const[confrim,setconfrim]=useState("")
 const[err,seterr]=useState("")
+const switchTo = useNavigate()
 
 const Usernamechanges=(event)=>{
     setusername(event.target.value)
@@ -27,18 +28,23 @@ const Confrimchanges=(event)=>{
         event.preventDefault();
        try{
         if(Password===confrim){
-       await axios.post("http://localhost:3000/postuser",{UserName,Gmail,Password})
+       const responded=await axios.post("http://localhost:3000/api/users/postuser",{UserName,Gmail,Password})
        setusername("")
        setgmail("")
        setpassword("")
        setconfrim("")
        seterr("")
+       localStorage.setItem("token",responded.data.jwtToken);
+       alert("Sign up is successful")
+       switchTo("/order")
         }
         else{
-      seterr("Password and confrim password did not match.")
+      seterr("Password and confrim password did not match")
         } 
-       } catch(err){
-        console.log("post users err:",err)
+       } 
+       catch(error){
+        console.log("post users err:",error)
+        alert("Failed to signup")
        }
     
     }
@@ -65,9 +71,7 @@ const Confrimchanges=(event)=>{
         <div>
         <input type="password" className="border-2 black mb-5" placeholder="Confrim Password" onChange={Confrimchanges} value={confrim}/>
         </div>
-        <NavLink to="/order">
         <button className="bg-yellow-300" onClick={postUsers}>SignUp</button>
-        </NavLink>
     </div>
     <div className="bg-right bg-green-400 h-screen w-full"></div>
     </div>
