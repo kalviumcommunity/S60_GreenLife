@@ -1,5 +1,5 @@
 import Navbar from "./Navbar";
-// import PlantsData from "../SampleData";
+import {jwtDecode} from "jwt-decode";
 import { useState,useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -7,13 +7,51 @@ import { Link } from "react-router-dom";
 
 function Order(){
     const[opt,selectedopt]=useState("All Plants");
+    const[name,setname]=useState(""||"User");
     const[PlantsData,setplantsdata]=useState([]);
-   
+    // const Nextpage=useNavigate();
+
+    useEffect(
+        ()=>{
+            const jwt=localStorage.getItem("token")
+            if(jwt){
+                try{
+                    const decodedvalue=jwtDecode(jwt);
+                if(decodedvalue && decodedvalue.NewUser && decodedvalue.NewUser.id){
+                    const userId=decodedvalue.NewUser.id;
+                    SpecificUser(userId)
+                }else{
+                    console.log("Invalid token exists in localstorage")
+                    console.log(decodedvalue)
+                    console.log(decodedvalue.NewUser)
+                    console.log(decodedvalue.NewUser.id)
+                }
+                }catch(error){
+                    console.log("jwt token error in frontend:",error)
+                }
+            }else{
+                console.log("There is nothing in localstorage")
+            }
+        },[])
+
+   const SpecificUser=async(userid)=>{
+try{
+    const responded= await axios.get(`http://localhost:3000/api/users/${userid}`,{
+        headers :{
+            'x-auth-token':localStorage.getItem("token")
+        }
+    }
+)
+setname(responded.data.username)
+}catch(error){
+    console.log("Specific user details error in frontend:",error)
+}
+   }
 
     useEffect(()=>{
         const data=async()=>{
             try{
-                const plantsdata=await axios.get("http://localhost:3000/get")
+                const plantsdata=await axios.get("http://localhost:3000/plant/get")
                 setplantsdata(plantsdata.data.plantlist)
             }catch(err){
                 console.log(err)
@@ -46,17 +84,19 @@ function Order(){
             <Link to="/YourGarden">
             <button className="right-8 bottom-5 bg-orange-400 fixed">View garden</button>
             </Link>
+            <p className="m-10 text-xl font-medium">Welcome {name}<br></br>Dive into our diverse selection, discover expertly curated plants, and embark on a journey of growth and serenity. Happy planting!</p>
         <div className="grid grid-cols-3">
             {PlantsData && PlantsData.filter((each)=>opt === 'All Plants' || each.PlantFilter.includes(opt))
             .map((eachplant)=>{
                 return(
-                    <div key={eachplant._id} className="border-4 rounded-3xl m-10 p-10">
-                    <img src={eachplant.PlantImage} alt="" className="h-50 w-70  rounded-3xl" />
+                    <div key={eachplant._id} className="border-4 rounded-3xl m-8 p-7">
+                    <img src={eachplant.PlantImage} alt="Plant Image" className="h-50 w-70 rounded-3xl cursor-pointer" />
                     <b>{eachplant.PlantName}</b>
                     <p>{GiveRatings(eachplant.Rating)}</p>
                     <p>{eachplant.PlantCost}</p>
-                    <p className="text-blue-500 cursor-pointer">Know More</p>
-                    <button className="bg-green-400 text-white">Add to your garden</button>
+                    <Link to={`/plant/getplant/${eachplant._id}`}>
+                    <button className="bg-green-400 text-white">Know more about Product</button>
+                    </Link>
                     </div>
                 )
             })}

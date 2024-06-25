@@ -42,7 +42,6 @@ const UpdateRequest=async()=>{
     var updatedData=await axios.put(`http://localhost:3000/updateExp/${id}`,{experience : updateExp,image})
     const updatedExp=updatedData.data
     setusers(users.map((user) => user._id === id ? { ...user, experience: updatedExp.experience, image: updatedExp.image } : user));
-    console.log(users)
     setneedtoupdate(false);
     setupdateExp("");
     setupdatefile(null);
@@ -79,7 +78,6 @@ const postUrExp=async (event)=>{
         setexperience("")
         setfile(null)
         setusers([...users,newdata.data])
-        console.log(newdata);
 }catch(err){
     console.log("PostExp err:",err)
 }
@@ -95,8 +93,6 @@ try{
     console.log("delete Exp err:",err)
 }
 }
-
-console.log(users)
 
     return(
         <div>

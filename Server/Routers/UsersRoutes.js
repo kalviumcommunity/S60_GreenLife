@@ -2,7 +2,6 @@ const express=require("express");
 const bcrypt=require("bcrypt");
 const jwt=require("jsonwebtoken");
 const dotenv=require("dotenv");
-const Authentication=require("../Authentication/ProtectRoutes")
 const {check,validationResult}=require("express-validator");
 const {UsersModel}=require("../mongoConnect")
 
@@ -52,8 +51,6 @@ UserRoutes.post("/postuser",validationRules,async (request,response)=>{
             }
         })
     }catch(error){
-        console.log(process.env.Secret_key)
-        console.log(error);
         response.status(500).send("Server error in UserRoutes.js (postuser route)")
     }
 })
@@ -77,7 +74,7 @@ UserRoutes.post("/login",loginvalidationRules, async(request,response)=>{
             return response.status(400).json({note : "Incorrect Password"})
         }
         const createPayload={
-            users : {
+            NewUser : {
                 id : validuser.id
             }
         };
@@ -89,8 +86,19 @@ UserRoutes.post("/login",loginvalidationRules, async(request,response)=>{
             }
         })
     }catch(error){
-        console.log(error.message)
         response.status(500).json("Server error in UserRoutes.js (login route error)")
+    }
+})
+
+UserRoutes.get("/:id",async(request,response)=>{
+    try{
+        const getuser=await UsersModel.findById(request.params.id).select("-Password");
+        if(!getuser){
+            return response.status(404).json({note : "User not found in database"})
+        }
+        response.json({username : getuser.UserName})
+    }catch(error){
+        response.status(500).json({note : "speific user route error in server"})
     }
 })
 

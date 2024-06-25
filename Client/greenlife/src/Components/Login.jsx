@@ -21,6 +21,7 @@ event.preventDefault();
 try{
     const responded=await axios.post("http://localhost:3000/api/users/login",{Gmail,Password})
     localStorage.setItem("token",responded.data.jwtToken);
+    console.log(responded.data.jwtToken)
     alert("Your Login is successful")
     Nextpage("/order")
 

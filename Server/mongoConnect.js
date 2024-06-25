@@ -34,7 +34,7 @@ const plantSchema=mongoose.Schema({
 const UserSchema=mongoose.Schema({
     UserName : {type : String},
     Gmail : {type : String, required : true, unique : true, match: [/.+\@.+\..+/, "Please fill a valid email address"]},
-    Password : {type : String, required : true, minlength: [5, "Password should be at least 2 characters long"] }
+    Password : {type : String, required : true, minlength: [5, "Password should be at least 5 characters long"] }
 })
 
 const ExpSchema=mongoose.Schema({
