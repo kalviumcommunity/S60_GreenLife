@@ -1,9 +1,9 @@
 const express=require("express");
 const {SchemaModel}=require("../mongoConnect");
-// const Authentication=require("../Authentication/ProtectRoutes")
+const Authentication=require("../Authentication/ProtectRoutes")
 
 const PlantRouter=express.Router()
-// console.log(Authentication,"first line")
+
 PlantRouter.get("/get",(request,response)=>{
     // response.send("This is a get request")
     SchemaModel.find({})
@@ -11,9 +11,9 @@ PlantRouter.get("/get",(request,response)=>{
     .catch((err)=>{response.json({err})})
 })
 
-PlantRouter.get("/getplant/:id",async(request,response)=>{
+PlantRouter.get("/getplant/:id",Authentication,async(request,response)=>{
     const plantid=request.params.id;
-    // console.log(Authentication,"***")
+
     try{
         const plant=await SchemaModel.findById(plantid);
         if(!plant){
