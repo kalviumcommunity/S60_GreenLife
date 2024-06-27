@@ -1,17 +1,27 @@
 import {useState,useEffect} from "react";
 import Navbar from "./Navbar";
-import { useParams,Link } from "react-router-dom";
+import { useParams,Link,useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function SpecificPlant(){
 const {id}=useParams();
 const[data,setdata]=useState(null);
+const nextPage=useNavigate();
 
 useEffect(()=>{
     const Getdata=async()=>{
+        const jwtToken=localStorage.getItem("token")
+        if(!jwtToken){
+            nextPage("/NotAuthenticated")
+            return;
+        }
         try{
-            const respond=await axios.get(`http://localhost:3000/plant/getplant/${id}`)
-            console.log(respond.data)
+            const respond=await axios.get(`http://localhost:3000/plant/getplant/${id}`,{
+                headers : {
+                    'x-auth-token' : jwtToken,
+                }
+            })
+            // console.log(respond.data)
             setdata(respond.data.plant)
         }catch(error){
             console.log("Specific component error:",error)

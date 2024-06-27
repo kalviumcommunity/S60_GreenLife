@@ -1,5 +1,6 @@
 import Navbar from "./Navbar"
 import { useState,useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Experience(){
@@ -10,12 +11,22 @@ const[needtoupdate,setneedtoupdate]=useState(false);
 const[updateExp,setupdateExp]=useState("");
 const[updatefile,setupdatefile]=useState(null);
 const[id,setid]=useState(null)
+const switchpage=useNavigate();
 
 
 useEffect(()=>{
     const getusers=async()=>{
+        const jwtToken=localStorage.getItem("token")
+        if(!jwtToken){
+         switchpage("/NotAuthenticated")
+         return;
+        }
         try{
-        const dataofusers=await axios.get("http://localhost:3000/getexp")
+        const dataofusers=await axios.get("http://localhost:3000/getexp",{
+            headers : {
+                'x-auth-token' : jwtToken,
+            }
+        })
         setusers(dataofusers.data.listexp)
         }
         catch(err){
