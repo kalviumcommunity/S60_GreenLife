@@ -55,13 +55,14 @@ plantsArray.forEach(({id,quantity}) => {
 )
 
 CartRouter.delete('/delete/:Userid/:plantid',async(request,response)=>{
-    const{userid,plantid}=request.params;
+    const{Userid,plantid}=request.params;
     try{
-        const findcart=await CartModel.findOne({ userid })
+        const findcart=await CartModel.findOne({ UserId : Userid })
         if(!findcart){
             return response.status(404).json({note : "There is no user with provided cart."})
         }
         const selectplant=findcart.plants.findIndex(p=>p.id.toString()==plantid);
+        console.log(findcart,"selected plant")
         if(selectplant>-1){
             findcart.plants.splice(selectplant,1)
             const updatedcart= await findcart.save()

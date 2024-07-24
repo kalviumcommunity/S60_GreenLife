@@ -7,8 +7,8 @@ import axios from "axios";
 function SpecificPlant(){
 const {id}=useParams();
 const[data,setdata]=useState(null);
-const[quantity,setquantity]=useState(0);
-const[userid,setid]=useState("")
+const[quantity,setquantity]=useState(1);
+const[userid,setid]=useState("");
 const nextPage=useNavigate();
 
 useEffect(()=>{
@@ -58,7 +58,7 @@ useEffect(
         }
     },[])
 
-const AddcountandAddtoCart=async (event)=>{
+const AddtoCart=async (event)=>{
     event.preventDefault()
     try{
     const checkdata= await axios.get(`http://localhost:3000/cart/get/${userid}`,{
@@ -67,7 +67,7 @@ const AddcountandAddtoCart=async (event)=>{
         }
     })
    const cartstatus=checkdata.data;
-   console.log(cartstatus,"cartstatus")
+//    console.log(cartstatus,"cartstatus")
    const savedplant=cartstatus.plants.find(item=>item.id===id)
    if(savedplant){
     console.log("Need to update successfully")
@@ -80,19 +80,34 @@ const AddcountandAddtoCart=async (event)=>{
     setquantity(updatecount)
     console.log("updated plant count successfully",postcart.data)
    }else{
-    const postcart= await axios.post(`http://localhost:3000/cart/post/${userid}`,{plants : [{id, quantity : 1}]},{
+    const postcart= await axios.post(`http://localhost:3000/cart/post/${userid}`,{plants : [{id, quantity : quantity}]},{
     headers : {
         'x-auth-token' : jwt,
     }
     })
     console.log("plants added to garden successfully",postcart.data)
-    setquantity(1)
    }
 }catch(err){
-    console.log("PostCart err:",err)
-    console.log(jwt)
+    if(err.response.status===404){
+        try{
+            const postcart= await axios.post(`http://localhost:3000/cart/post/${userid}`,{plants : [{id, quantity : 1}]},{
+                headers : {
+                    'x-auth-token' : jwt,
+                }
+                })
+                console.log("new cart created successfully",postcart.data)
+        }catch(err){
+            console.log("cannot create new cart",err)
+        }
+    }
 }
 
+}
+const AddCount=()=>{
+    setquantity(prev=>prev+1)
+}
+const SubCount=()=>{
+    setquantity(prev=>(prev>=1?prev-1:1))
 }
 
     return(
@@ -104,8 +119,13 @@ const AddcountandAddtoCart=async (event)=>{
             <div>
              <h2 className="p-7 mt-5 text-left text-4xl">{data.PlantName}</h2> 
              <img src={data.PlantImage} alt="Plant Image" className="h-96 rounded-3xl"/>
-             <p className="text-red-600 font-bold text-2xl text-left mr-10">Plant cost : {data.PlantCost}</p>
-             <button className="w-93 mt-5 bg-yellow-400 text-left" onClick={AddcountandAddtoCart}>Plant in my garden{quantity>=1? ` (${quantity})` :''}</button><br></br>
+             <p className="text-red-600 font-bold text-2xl text-left mr-10 flex">Plant cost: {data.PlantCost}</p>
+             <div className="flex justify-center">
+              <button className="text-2xl px-1 py-1 mr-5" onClick={AddCount}>+</button>
+              <p>{quantity}</p>
+              <button className="text-2xl px-1 py-1 ml-5" onClick={SubCount}>-</button>
+             </div>
+             <button className="w-93 mt-5 bg-yellow-400 text-left" onClick={AddtoCart}>Plant in my garden</button><br></br>
              <button className="mt-5 bg-orange-500 px-14">Buy Now</button>
              </div>
               <div className="mt-20 ml-10">

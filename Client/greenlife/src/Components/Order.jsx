@@ -35,7 +35,7 @@ function Order(){
                 console.log("There is nothing in localstorage")
             }
         },[])
-        console.log(id,"userid from order page")
+        // console.log(id,"userid from order page")
 
    const SpecificUser=async(userid)=>{
 try{
