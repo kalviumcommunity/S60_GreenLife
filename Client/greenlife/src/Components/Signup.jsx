@@ -2,11 +2,15 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Navbar from "./Navbar";
 import axios from "axios";
+import { GoogleAuthProvider,signInWithPopup } from "firebase/auth";
+import { auth } from "../Firebase/firebase";
 
 function Signup(){
 const [UserName,setusername]=useState("")
 const[Gmail,setgmail]=useState("")
 const[Password,setpassword]=useState("")
+const[display,setdisplay]=useState(false);
+const[user,setuser]=useState(null);
 const[confrim,setconfrim]=useState("")
 const[err,seterr]=useState("")
 const switchTo = useNavigate()
@@ -24,19 +28,44 @@ const Confrimchanges=(event)=>{
     setconfrim(event.target.value)
 }
 
+const HandleGoogleSignin= async()=>{
+    try{
+        const GoogleProvider=await new GoogleAuthProvider()
+        const details=await signInWithPopup(auth,GoogleProvider)
+        console.log(details.user)
+        setuser(details.user)
+    }catch(err){
+        console.log("signin with google err:",err)
+    }
+
+}
+
     const postUsers=async (event)=>{
         event.preventDefault();
        try{
         if(Password===confrim){
-       const responded=await axios.post("http://localhost:3000/api/users/postuser",{UserName,Gmail,Password})
-       setusername("")
-       setgmail("")
-       setpassword("")
-       setconfrim("")
-       seterr("")
-       localStorage.setItem("token",responded.data.jwtToken);
-       alert("Sign up is successful")
-       switchTo("/order")
+        if(user){
+            const responded=await axios.post("http://localhost:3000/api/users/postuser",{UserName:user.displayName,Gmail:user.email,Password})
+            setusername("")
+            setgmail("")
+            setpassword("")
+            setconfrim("")
+            seterr("")
+            localStorage.setItem("token",responded.data.jwtToken);
+            alert("Sign up is successful")
+            switchTo("/order")
+
+        }else{
+            const responded=await axios.post("http://localhost:3000/api/users/postuser",{UserName,Gmail,Password})
+            setusername("")
+            setgmail("")
+            setpassword("")
+            setconfrim("")
+            seterr("")
+            localStorage.setItem("token",responded.data.jwtToken);
+            alert("Sign up is successful")
+            switchTo("/order")  
+        }
         }
         else{
       seterr("Password and confrim password did not match")
@@ -60,7 +89,19 @@ const Confrimchanges=(event)=>{
         <div>
         <p>{err}</p>
         <h3>SignUp</h3>
-        <input type="text" className="border-2 black mb-5" placeholder="UserName" onChange={Usernamechanges} value={UserName}/>
+        {!display && user?(
+<div>
+    Please enter password {user.displayName}
+    <div>
+            <input type="text" className="border-2 black mb-5" placeholder="Password" onChange={passwordchanges}/>
+            </div>
+            <div>
+            <input type="password" className="border-2 black mb-5" placeholder="Confrim Password" onChange={Confrimchanges}/>
+            </div>
+</div>
+):(<div>
+    <div>
+         <input type="text" className="border-2 black mb-5" placeholder="UserName" onChange={Usernamechanges} value={UserName}/>
         </div>
         <div>
         <input type="mail" className="border-2 black mb-5" placeholder="Email" onChange={gmailchanges} value={Gmail}/>
@@ -71,9 +112,12 @@ const Confrimchanges=(event)=>{
         <div>
         <input type="password" className="border-2 black mb-5" placeholder="Confrim Password" onChange={Confrimchanges} value={confrim}/>
         </div>
+</div>)}
         <button className="bg-yellow-300" onClick={postUsers}>SignUp</button>
+        <p>OR</p>
+        <button onClick={HandleGoogleSignin}>Sign in with google</button>
     </div>
-    <div className="bg-right bg-green-400 h-screen w-full"></div>
+    </div>
     </div>
     )
 }
