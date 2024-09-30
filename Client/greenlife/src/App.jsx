@@ -11,6 +11,7 @@ import NotAuthenticated from './Components/NotAuthenticated';
 import { ContextProvider } from './Context Provider/CreateContext';
 import BuyNow from './Components/BuyNow';
 import ViewGarden from './Components/ViewGarden';
+import About from './Components/About';
 
 function App() {
 
@@ -26,10 +27,10 @@ function App() {
     <Route path="/plant/getplant/:id" element={<SpecificPlant/>}></Route>
     <Route path='/Buynow/:id' element={<BuyNow/>}></Route>
     <Route path='/buySpecificPlant/:userid' element={<BuySpecificPlant/>}></Route>
-    <Route path='/NotAuthenticated' element={<NotAuthenticated/>}></Route>
+    <Route path='/about' element={<About/>}></Route>
   </Routes>
   </ContextProvider>
   )
 }
 
-export default App
+export default App
