@@ -20,7 +20,7 @@ const plantSchema=mongoose.Schema({
     ScientificName:String,
     PlantFilter:[String],
     FamilyName:String,
-    PlantCost:String,
+    PlantCost:Number,
     ReferenceLink:String,
     Uses : String,
     Toxicity : String,
@@ -42,21 +42,28 @@ const ExpSchema=mongoose.Schema({
     image : String
 })
 const plantArray=mongoose.Schema({
-    id : {type : mongoose.Schema.Types.ObjectId, ref : 'plants', required : true},
-    quantity: {type : Number, required : true, min : 1}
+    id : {type : mongoose.Schema.Types.ObjectId, ref : 'plants'},
+    quantity: {type : Number, min : 1},
+    PlantCost : {type : Number, ref : 'plants'}
 });
 
 const CartSchema=mongoose.Schema({
-    UserId : {type : mongoose.Schema.Types.ObjectId, ref : 'users',required : true},
-    plants : [plantArray]
+    UserId : {type : mongoose.Schema.Types.ObjectId, ref : 'users'},
+    plants : [plantArray],
+    SinglePurchase : {
+        id : {type : mongoose.Schema.Types.ObjectId, ref : 'plants'},
+        quantity: {type : Number, min : 1},
+        PlantCost : {type : Number, ref : 'plants'}
+    }
 })
+
 const PlantModel=mongoose.model("plants",plantSchema)
 const UserModel=mongoose.model("Users",UserSchema)
 const ExpModel=mongoose.model("Experience",ExpSchema)
 const CartModel=mongoose.model("Cart",CartSchema)
 
-// ExpModel.insertMany(Experience)
-// .then(()=>console.log("exp data is sended to database"))
+// PlantModel.insertMany(PlantsData)
+// .then(()=>console.log("plants data is sended to database"))
 // .catch((err)=>console.log("database error:",err))
 
 module.exports={Connection: ConnectDatabase, SchemaModel : PlantModel, UsersModel:UserModel, ExpModel:ExpModel, CartModel : CartModel};

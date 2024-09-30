@@ -41,7 +41,7 @@ function CartCards(props){
                 <div key={data._id} className="border-4 rounded-3xl m-8 p-7 flex flex-col items-center">
                     <img src={data.PlantImage} alt="Plant Image" className="h-full w-full object-cover rounded-3xl"/>
                     <p>{data.PlantName}</p>
-                    <b className="text-green-800">{data.PlantCost}</b>
+                    <b className="text-green-800">Rs.{data.PlantCost}</b>
                 </div>:<p>There are not items in your garden</p>
             }
          </div>

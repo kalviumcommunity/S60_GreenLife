@@ -2,13 +2,15 @@ import axios from "axios";
 import Navbar from "./Navbar";
 import {useState,useEffect} from "react";
 import CartCards from "./CartCards";
-import { useNavigate, useParams } from "react-router-dom";
+import { useStoredState } from "../Context Provider/CreateContext";
+import { useNavigate, useParams, Link } from "react-router-dom";
 
 
 function ViewGarden(){
 
     const {next}=useNavigate()
     const {id}=useParams()
+    const {setlength}=useStoredState();
     const[jwtToken,settoken]=useState("")
     const[cart,setcart]=useState(null)
 
@@ -35,6 +37,7 @@ function ViewGarden(){
                 }
             })
             setcart(cartlist.data.plants)
+            setlength(cartlist.data.plants.length)
             // AddId(cartlist.data.plants)
         }catch(error){
            console.log("cart get error:",error)
@@ -76,9 +79,9 @@ function ViewGarden(){
                     )
                 })}
             </div>
-            {/* <div className="w-full h-16 bg-green-400 bottom-0 left-0 right-0 fixed">
-             <p className="float-left ml-10 text-3xl font-bold mt-3">Total Cost: </p>
-            </div> */}
+            <Link to={`/Buynow/${id}`}>
+            <button className="right-8 bottom-5 bg-orange-400 fixed">Buy Now</button>
+            </Link>
         </div>
     )
 }

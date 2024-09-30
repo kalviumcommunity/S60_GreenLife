@@ -1,8 +1,8 @@
 import { initializeApp } from "firebase/app";
-// import { getAnalytics } from "firebase/analytics";
+import { getAnalytics } from "firebase/analytics";
 import {getAuth} from "firebase/auth";
 
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
 const firebaseConfig = {
   apiKey: "AIzaSyCI5NxfTy0zoy1M3-r_lex8o-cQ8ynD2-c",
   authDomain: "greenlife-c4290.firebaseapp.com",
@@ -13,8 +13,7 @@ const firebaseConfig = {
   measurementId: "G-BXTLR5RMSH"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics=getAnalytics(app);
 export const auth=getAuth(app);
 export default app;
-// const analytics = getAnalytics(app);

@@ -96,7 +96,7 @@ UserRoutes.get("/:id",async(request,response)=>{
         if(!getuser){
             return response.status(404).json({note : "User not found in database"})
         }
-        response.json({username : getuser.UserName})
+        response.json({username : getuser.UserName, gmail : getuser.Gmail})
     }catch(error){
         response.status(500).json({note : "speific user route error in server"})
     }

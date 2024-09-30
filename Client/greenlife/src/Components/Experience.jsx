@@ -13,10 +13,9 @@ const[updatefile,setupdatefile]=useState(null);
 const[id,setid]=useState(null)
 const switchpage=useNavigate();
 
-
+const jwtToken=localStorage.getItem("token")
 useEffect(()=>{
     const getusers=async()=>{
-        const jwtToken=localStorage.getItem("token")
         if(!jwtToken){
          switchpage("/NotAuthenticated")
          return;
@@ -50,7 +49,11 @@ const UpdateRequest=async()=>{
         var generatefilelink=await axios.post("https://api.cloudinary.com/v1_1/dg6izvre4/image/upload",createdData);
         image=generatefilelink.data.secure_url;
     }
-    var updatedData=await axios.put(`http://localhost:3000/updateExp/${id}`,{experience : updateExp,image})
+    var updatedData=await axios.put(`http://localhost:3000/updateExp/${id}`,{
+        headers : {
+            'x-auth-token' : jwtToken,
+        }
+    },{experience : updateExp,image})
     const updatedExp=updatedData.data
     setusers(users.map((user) => user._id === id ? { ...user, experience: updatedExp.experience, image: updatedExp.image } : user));
     setneedtoupdate(false);
@@ -85,7 +88,11 @@ const postUrExp=async (event)=>{
             image=fileupload.data.secure_url;
         }
         console.log(image)
-    const newdata= await axios.post("http://localhost:3000/postexp",{experience,image})
+    const newdata= await axios.post("http://localhost:3000/postexp",{
+        headers : {
+            'x-auth-token' : jwtToken,
+        }
+    },{experience,image})
         setexperience("")
         setfile(null)
         setusers([...users,newdata.data])
@@ -97,7 +104,11 @@ const postUrExp=async (event)=>{
 
 const deleteRequest=(id)=>{
 try{
-    axios.delete(`http://localhost:3000/deleteExp/${id}`)
+    axios.delete(`http://localhost:3000/deleteExp/${id}`,{
+        headers : {
+            'x-auth-token' : jwtToken,
+        }
+    })
     setusers(users.filter((user)=>user._id!==id))
 
 }catch(err){
