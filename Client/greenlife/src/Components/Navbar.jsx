@@ -1,4 +1,5 @@
 import { NavLink,useNavigate } from "react-router-dom";
+import React from "react";
 
 
 function Navbar(){
@@ -17,7 +18,7 @@ const OnLogout=()=>{
 }
 
     return(
-  <div className='mainbody'>
+  <div>
         <nav className='flex items-center bg-red-50 h-12 w-full fixed top-0 left-0 justify-around'>
         <NavLink to="/">
           <p><img src="https://i.postimg.cc/4N1Xqpyx/Capstone-Project-1-removebg-preview.png" alt="" className='h-12 w-35 cursor-pointer'/></p>

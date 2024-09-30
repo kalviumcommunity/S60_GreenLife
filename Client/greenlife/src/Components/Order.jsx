@@ -2,6 +2,7 @@ import Navbar from "./Navbar";
 import {jwtDecode} from "jwt-decode";
 import { useState,useEffect } from "react";
 import axios from "axios";
+import { useStoredState } from "../Context Provider/CreateContext";
 import { Link,useNavigate } from "react-router-dom";
 
 
@@ -10,6 +11,7 @@ function Order(){
     const[name,setname]=useState(""||"User");
     const[PlantsData,setplantsdata]=useState([]);
     const[id,setid]=useState("");
+    const{length}=useStoredState();
     const Nextpage=useNavigate();
 
     const jwt=localStorage.getItem("token")
@@ -90,8 +92,9 @@ function DirectNextPage(){
     return(
         <div>
             <Navbar/>
-            <button className="right-8 bottom-5 bg-orange-400 fixed" onClick={DirectNextPage}>View garden</button>
+            <button className="right-8 bottom-5 bg-orange-400 fixed" onClick={DirectNextPage}>View garden({length})</button>
             <p className="m-10 text-xl font-medium">Welcome {name}<br></br>Dive into our diverse selection, discover expertly curated plants, and embark on a journey of growth and serenity. Happy planting!</p>
+            <input type="text" placeholder="Search"/>
         <div className="grid grid-cols-3">
             {PlantsData && PlantsData.filter((each)=>opt === 'All Plants' || each.PlantFilter.includes(opt))
             .map((eachplant)=>{
@@ -100,7 +103,7 @@ function DirectNextPage(){
                     <img src={eachplant.PlantImage} alt="Plant Image" className="h-full w-full object-cover rounded-3xl" />
                     <b>{eachplant.PlantName}</b>
                     <p>{GiveRatings(eachplant.Rating)}</p>
-                    <p>{eachplant.PlantCost}</p>
+                    <p>Rs.{eachplant.PlantCost}</p>
                     <Link to={`/plant/getplant/${eachplant._id}`}>
                     <button className="bg-green-400 text-white">Know more about Product</button>
                     </Link>

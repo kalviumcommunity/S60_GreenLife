@@ -2,11 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Navbar from "./Navbar";
 import axios from "axios";
+import React from "react";
+import {toast} from "react-toastify";
 import { GoogleAuthProvider,signInWithPopup } from "firebase/auth";
 import { auth } from "../Firebase/firebase";
 
 function Signup(){
-const [UserName,setusername]=useState("")
+const[UserName,setusername]=useState("")
 const[Gmail,setgmail]=useState("")
 const[Password,setpassword]=useState("")
 const[display,setdisplay]=useState(false);
@@ -33,6 +35,7 @@ const HandleGoogleSignin= async()=>{
         const GoogleProvider=await new GoogleAuthProvider()
         const details=await signInWithPopup(auth,GoogleProvider)
         console.log(details.user)
+        setdisplay(true)
         setuser(details.user)
     }catch(err){
         console.log("signin with google err:",err)
@@ -52,7 +55,6 @@ const HandleGoogleSignin= async()=>{
             setconfrim("")
             seterr("")
             localStorage.setItem("token",responded.data.jwtToken);
-            alert("Sign up is successful")
             switchTo("/order")
 
         }else{
@@ -63,7 +65,6 @@ const HandleGoogleSignin= async()=>{
             setconfrim("")
             seterr("")
             localStorage.setItem("token",responded.data.jwtToken);
-            alert("Sign up is successful")
             switchTo("/order")  
         }
         }
@@ -73,7 +74,7 @@ const HandleGoogleSignin= async()=>{
        } 
        catch(error){
         console.log("post users err:",error)
-        alert("Failed to signup")
+        toast.error("Signup failed")
        }
     
     }
@@ -89,7 +90,7 @@ const HandleGoogleSignin= async()=>{
         <div>
         <p>{err}</p>
         <h3>SignUp</h3>
-        {!display && user?(
+        {display && user?(
 <div>
     Please enter password {user.displayName}
     <div>
@@ -115,7 +116,10 @@ const HandleGoogleSignin= async()=>{
 </div>)}
         <button className="bg-yellow-300" onClick={postUsers}>SignUp</button>
         <p>OR</p>
-        <button onClick={HandleGoogleSignin}>Sign in with google</button>
+             <button className="bg-green-200 flex w-60 h-10 justify-center items-center" onClick={HandleGoogleSignin}> 
+             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png" alt="logo" className="h-7 mr-3" />
+             <span className="text-xs">Sign in with google</span>
+          </button>
     </div>
     </div>
     </div>

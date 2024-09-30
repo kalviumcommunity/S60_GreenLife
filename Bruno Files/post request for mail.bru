@@ -1,0 +1,19 @@
+meta {
+  name: post request for mail
+  type: http
+  seq: 16
+}
+
+post {
+  url: http://localhost:3000/send-mail
+  body: json
+  auth: none
+}
+
+headers {
+  x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOZXdVc2VyIjp7ImlkIjoiNjZhYTU4YzMzZDJmYTNmM2JiNzA3N2EyIn0sImlhdCI6MTcyMjQzOTg3NSwiZXhwIjoyMDMzNDc5ODc1fQ.7N01vsN3VND2d0zfSFTGxPhRVxs31AR46tRkwNYNEug
+}
+
+body:json {
+  {"mail": "rishi@gmail.com"}
+}

@@ -1,5 +1,6 @@
 const express=require("express");
-const {CartModel}=require("../mongoConnect")
+const {CartModel}=require("../mongoConnect");
+// const { createCheckSchema } = require("express-validator/lib/middlewares/schema");
 
 const CartRouter=express.Router()
 
@@ -23,6 +24,7 @@ CartRouter.get('/get/:UserId',FetchCart,(request,response)=>{
 
 CartRouter.post('/post/:UserId',async(request,response)=>{
     const plantsArray=request.body.plants;
+    const singlePlant=request.body.SinglePurchase;
     // console.log(request.body,"here is your request")
 if(!Array.isArray(plantsArray)){
     return response.status(400).json({note : "Please include plants array"})
@@ -33,18 +35,23 @@ if(!Array.isArray(plantsArray)){
         if(!plantcart){
 plantcart=new CartModel({
     UserId : request.params.UserId,
-    plants : plantsArray
+    plants : plantsArray,
+    SinglePurchase : singlePlant
 })
 }else{
-plantsArray.forEach(({id,quantity}) => {
+plantsArray.forEach(({id,quantity,PlantCost}) => {
     const plantIndex=plantcart.plants.findIndex(i=>i.id.toString()==id)
     if(plantIndex>-1){
         plantcart.plants[plantIndex].quantity+=quantity;
+        plantcart.plants[plantIndex].PlantCost+=PlantCost;
     }else{
-        plantcart.plants.push({id,quantity})
+        plantcart.plants.push({id,quantity,PlantCost})
     }
     
 });
+if(singlePlant){
+    plantcart.SinglePurchase=singlePlant;
+}
         }
         const CartList=await plantcart.save();
             response.status(201).json(CartList)
@@ -74,6 +81,40 @@ CartRouter.delete('/delete/:Userid/:plantid',async(request,response)=>{
         return response.status(500).json({note : err.message})
     }
 
+})
+
+CartRouter.get('/single/:UserId',async(request,response)=>{
+    try{
+        const Oneplant=await CartModel.findOne({UserId : request.params.UserId})
+        if(!Oneplant){
+            return response.status(404).json({note : "there is no single purchase for present user."})
+        }
+        response.json(Oneplant.SinglePurchase)
+    }catch(err){
+        response.status(500).json({note : err.message})
+    }
+})
+
+CartRouter.post("/single/post/:UserId",async(request,response)=>{
+    const{id,quantity,PlantCost}=request.body;
+    if(!id||!quantity||!PlantCost){
+        return response.status(400).json({note : "please provide all details"})
+    }
+    try{
+        let plantArray= await CartModel.findOne({UserId : request.params.UserId});
+        if(!plantArray){
+            plantArray= new CartModel({
+                UserId : request.params.UserId,
+                SinglePurchase : {id, quantity,PlantCost}
+            })
+        }else{
+            plantArray.SinglePurchase={id, quantity,PlantCost}
+        }
+        const cartitems=await plantArray.save();
+        response.status(201).json(cartitems.SinglePurchase)
+    }catch(err){
+        response.status(400).json({note : err.message})
+    }
 })
 
 module.exports=CartRouter;
