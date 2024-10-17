@@ -4,17 +4,10 @@ const dotenv=require("dotenv");
 dotenv.config()
 
 const tarnsportMail=nodemailer.createTransport({
-    host : process.env.HOST,
-    port : process.env.PORT,
-    secure : false,
-    service : 'hotmail',
+    service : 'gmail',
     auth : {
-       type: "OAuth2",
        user : process.env.MAIL,
        pass : process.env.APP
-    },
-    tls : {
-        ciphers : process.env.TLS
     }
 })
 
@@ -32,7 +25,7 @@ const ThankuMailBody=async(userEmail)=>{
 return await tarnsportMail.sendMail(Details,(err,res)=>{
     console.log(Details,"details")
     if(err){
-        console.log("Error in sending mail from mail transporter:",err.message)
+        console.log("Error in sending mail from mail transporter:",err)
     }else{
         console.log("Email sent correctly:",res.response)
     }

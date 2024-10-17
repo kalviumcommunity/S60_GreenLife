@@ -22,4 +22,5 @@ I will keep on updating my day by day progress as it can change.
 
 Backend Deployed link -  https://s60-strange-phobia.onrender.com
 Frontend Deployed link - https://6634cee0ddadb712438786d4--thriving-pudding-fb286f.netlify.app/
+final deployed link frontend: https://66fac8d655a1290dee883375--singular-salmiakki-414210.netlify.app/
 

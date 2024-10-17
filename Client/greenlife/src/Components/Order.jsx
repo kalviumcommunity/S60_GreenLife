@@ -94,7 +94,6 @@ function DirectNextPage(){
             <Navbar/>
             <button className="right-8 bottom-5 bg-orange-400 fixed" onClick={DirectNextPage}>View garden({length})</button>
             <p className="m-10 text-xl font-medium">Welcome {name}<br></br>Dive into our diverse selection, discover expertly curated plants, and embark on a journey of growth and serenity. Happy planting!</p>
-            <input type="text" placeholder="Search"/>
         <div className="grid grid-cols-3">
             {PlantsData && PlantsData.filter((each)=>opt === 'All Plants' || each.PlantFilter.includes(opt))
             .map((eachplant)=>{
