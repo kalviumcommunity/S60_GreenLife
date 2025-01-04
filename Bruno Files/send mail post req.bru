@@ -1,0 +1,25 @@
+meta {
+  name: send mail post req
+  type: http
+  seq: 17
+}
+
+post {
+  url: http://localhost:3000/send-mail
+  body: json
+  auth: none
+}
+
+headers {
+  x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOZXdVc2VyIjp7ImlkIjoiNjc2OTk5YWZmZGFmMTU1NTA5NDQ1YTc5In0sImlhdCI6MTczNDk3Mzg3MSwiZXhwIjoyMDQ2MDEzODcxfQ.PM0o0Vzy_oonYcq84M4IMJTIBoeVUlIfJcvkz5L4oFk
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "mail": "test@gmail.com",
+    "cartDetails": [{"Name": "Aloevera", "Number": 2, "Cost": 200}],
+    "totalCost": 200
+  }
+  
+}

@@ -37,13 +37,14 @@ function Order(){
                 console.log("There is nothing in localstorage")
             }
         },[])
-        // console.log(id,"userid from order page")
+        // console.log(id,"UserId from order page")
 
-   const SpecificUser=async(userid)=>{
+   const SpecificUser=async(UserId)=>{
 try{
-    const responded= await axios.get(`http://localhost:3000/api/users/${userid}`,{
+    const responded= await axios.get(`http://localhost:3000/api/users/${UserId}`,{
         headers :{
-            'x-auth-token':localStorage.getItem("token")
+            'x-auth-token':localStorage.getItem("token"),
+             'Content-Type': 'application/json'
         }
     }
 )
@@ -65,9 +66,9 @@ setname(responded.data.username)
         data()
     },[])
 
-    const getselectedopt=(event)=>{
-         selectedopt(event.target.value);
-    }
+    // const getselectedopt=(event)=>{
+    //      selectedopt(event.target.value);
+    // }
 
 
     function GiveRatings(x){
@@ -89,39 +90,49 @@ function DirectNextPage(){
         Nextpage(`/YourGarden/${id}`)
     }
 }
-    return(
-        <div>
-            <Navbar/>
-            <button className="right-8 bottom-5 bg-orange-400 fixed" onClick={DirectNextPage}>View garden({length})</button>
-            <p className="m-10 text-xl font-medium">Welcome {name}<br></br>Dive into our diverse selection, discover expertly curated plants, and embark on a journey of growth and serenity. Happy planting!</p>
-        <div className="grid grid-cols-3">
-            {PlantsData && PlantsData.filter((each)=>opt === 'All Plants' || each.PlantFilter.includes(opt))
-            .map((eachplant)=>{
-                return(
-                    <div key={eachplant._id} className="border-4 rounded-3xl m-8 p-7 flex flex-col items-center">
-                    <img src={eachplant.PlantImage} alt="Plant Image" className="h-full w-full object-cover rounded-3xl" />
-                    <b>{eachplant.PlantName}</b>
-                    <p>{GiveRatings(eachplant.Rating)}</p>
-                    <p>Rs.{eachplant.PlantCost}</p>
-                    <Link to={`/plant/getplant/${eachplant._id}`}>
-                    <button className="bg-green-400 text-white">Know more about Product</button>
-                    </Link>
-                    </div>
-                )
-            })}
+
+return (
+    <div>
+        <Navbar />
+        <button
+            className="fixed bottom-5 right-5 bg-orange-400 text-white px-4 py-2 rounded-lg shadow-lg z-50 hover:bg-orange-500 transition-all duration-300"
+            onClick={DirectNextPage}
+        >
+            View garden ({length})
+        </button>
+        <p className="m-16 text-lg sm:text-xl font-medium text-center">
+        Welcome {name}<br></br>
+            Dive into our diverse selection, discover expertly curated plants, and embark on a journey of growth and serenity. Happy planting!
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+            {PlantsData &&
+                PlantsData.filter(
+                    (each) =>
+                        opt === "All Plants" || each.PlantFilter.includes(opt)
+                ).map((eachplant) => {
+                    return (
+                        <div
+                            key={eachplant._id}
+                            className="border rounded-lg p-4 flex flex-col items-center bg-white shadow-md hover:shadow-lg transition-shadow duration-300"
+                        >
+                            <img
+                                src={eachplant.PlantImage}
+                                alt="Plant"
+                                className="h-48 w-full object-cover rounded-lg mb-4"
+                            />
+                            <b className="text-md sm:text-lg mb-2">{eachplant.PlantName}</b>
+                            <p className="text-sm text-yellow-500 mb-2">{GiveRatings(eachplant.Rating)}</p>
+                            <p className="text-sm text-gray-700 mb-4">Rs. {eachplant.PlantCost}</p>
+                            <Link to={`/plant/getplant/${eachplant._id}`}>
+                                <button className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-all duration-300">
+                                    Know more about Product
+                                </button>
+                            </Link>
+                        </div>
+                    );
+                })}
         </div>
-        <select className="left-8 top-12 bg-green-300 fixed w-150" onChange={getselectedopt}>
-  <option value="All Plants">All Plants</option>
-  <option value="Indoor Plants">Indoor Plants</option>
-  <option value="Outdoor Plants">Outdoor Plants</option>
-  <option value="Air Purifying Plants">Air Purifying Plants</option>
-  <option value="Flowering Plants">Floweing Plants</option>
-  <option value="Fruit Plants">Fruit Plants</option>
-  <option value="Medicinal Plants">Medicinal Plants</option>
-  <option value="Succulents">Succulents</option>
-  <option value="Pet Friendly Plants">Pet Friendly Plants</option>
-</select>
-        </div>
-    )
+    </div>
+);
 }
 export default Order;

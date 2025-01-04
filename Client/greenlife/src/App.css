@@ -8,6 +8,15 @@
   padding: 2rem;
   text-align: center;
 }
+
+.navbar {
+  z-index: 0;
+}
+
+.carousel-section {
+  position: relative;
+  z-index: -10;
+}
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);

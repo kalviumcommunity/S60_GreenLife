@@ -11,6 +11,8 @@ import NotAuthenticated from './Components/NotAuthenticated';
 import { ContextProvider } from './Context Provider/CreateContext';
 import BuyNow from './Components/BuyNow';
 import ViewGarden from './Components/ViewGarden';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import About from './Components/About';
 
 function App() {
@@ -28,6 +30,7 @@ function App() {
     <Route path='/Buynow/:id' element={<BuyNow/>}></Route>
     <Route path='/buySpecificPlant/:userid' element={<BuySpecificPlant/>}></Route>
     <Route path='/about' element={<About/>}></Route>
+    <Route path='/NotAuthenticated' element={<NotAuthenticated/>}></Route>
   </Routes>
   </ContextProvider>
   )

@@ -20,9 +20,9 @@ function CartCards(props){
                 const respond=await axios.get(`http://localhost:3000/plant/getplant/${plantsid}`,{
                     headers : {
                         'x-auth-token' : jwtToken,
+                         'Content-Type': 'application/json'
                     }
                 })
-                // console.log(respond.data)
                 setdata(respond.data.plant)
             }catch(error){
                 console.log("cartcards component error:",error)
@@ -31,7 +31,6 @@ function CartCards(props){
         }
         Getdata()
     },[plantsid,nextPage])
-    // console.log(data)
     return(
         <div>
             <Navbar></Navbar>

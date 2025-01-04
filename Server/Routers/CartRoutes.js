@@ -25,7 +25,6 @@ CartRouter.get('/get/:UserId',FetchCart,(request,response)=>{
 CartRouter.post('/post/:UserId',async(request,response)=>{
     const plantsArray=request.body.plants;
     const singlePlant=request.body.SinglePurchase;
-    // console.log(request.body,"here is your request")
 if(!Array.isArray(plantsArray)){
     return response.status(400).json({note : "Please include plants array"})
 }

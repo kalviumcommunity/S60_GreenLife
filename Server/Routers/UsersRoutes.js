@@ -19,41 +19,44 @@ const loginvalidationRules=[
     check('Password', 'Password is required').exists()
   ]
 
-UserRoutes.post("/postuser",validationRules,async (request,response)=>{
+  UserRoutes.post("/postuser", validationRules, async (request, response) => {
+    const validationError = validationResult(request);
+    if (!validationError.isEmpty()) {
+        console.error("Validation errors:", validationError.array());
+        return response.status(400).json({ validationError: validationError.array() });
+    }
 
-    const validationError=validationResult(request);
-    if(!validationError.isEmpty()){
-        return response.status(400).json({validationError : validationError.array()})
-    }
-   
-    const{UserName,Gmail,Password}=request.body;
-      try{
-        let users=await UsersModel.findOne({ Gmail })
-        if(users){
-            return response.status(400).json({ note : "User already exists"})
+    const { UserName, Gmail, Password } = request.body;
+
+    try {
+        let users = await UsersModel.findOne({ Gmail });
+        if (users) {
+            return response.status(400).json({ note: "User already exists" });
         }
-        NewUser=new UsersModel({
-            UserName,Gmail,Password
-        })
-        const hashsalt=await bcrypt.genSalt(5)
-        NewUser.Password=await bcrypt.hash(Password,hashsalt)
+
+        let NewUser = new UsersModel({ UserName, Gmail, Password });
+        const hashsalt = await bcrypt.genSalt(5);
+        NewUser.Password = await bcrypt.hash(Password, hashsalt);
         await NewUser.save();
-        const createPayload={
-            NewUser : {
-                id : NewUser.id
+
+        const createPayload = { NewUser: { id: NewUser.id } };
+        jwt.sign(
+            createPayload,
+            process.env.Secret_key,
+            { expiresIn: "3600d" },
+            (error, jwtToken) => {
+                if (error) {
+                    console.error("JWT Error:", error);
+                    return response.status(500).json({ error: "Failed to generate JWT" });
+                }
+                response.json({ jwtToken });
             }
-        }
-        jwt.sign(createPayload,process.env.Secret_key,{expiresIn : "3600d"},(error,jwtToken)=>{
-            if(error){
-                throw err
-            }else{
-                response.json({jwtToken})
-            }
-        })
-    }catch(error){
-        response.status(500).send("Server error in UserRoutes.js (postuser route)")
+        );
+    } catch (error) {
+        console.error("Server error:", error);
+        response.status(500).send("Server error in UserRoutes.js (postuser route)");
     }
-})
+});
 
 UserRoutes.post("/login",loginvalidationRules, async(request,response)=>{
 
