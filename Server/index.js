@@ -3,8 +3,11 @@ const App=express()
 const cors=require("cors");
 const {Connection,SchemaModel}=require("./mongoConnect")
 const RoutesFile=require("./routes")
+
 App.use(cors());
-App.use("/",RoutesFile)
+App.use("/",RoutesFile);
+App.use(express.json());
+App.use(express.urlencoded({ extended: true }));
 
 function RecordStatus(){
     SchemaModel.db.readyState===1;

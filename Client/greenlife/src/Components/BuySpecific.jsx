@@ -13,8 +13,10 @@ function BuySpecificPlant(){
     const[id,setid]=useState("");
    const[name,setname]=useState("");
    const[img,setimg]=useState("");
+   const[quantity,setquantity]=useState(0);
     const[click,setclick]=useState(false);
     const[plant,setplants]=useState([]);
+    const[Totalcost,setTotalcost]=useState(0);
 
     const jwtToken=localStorage.getItem("token");
 
@@ -24,15 +26,15 @@ function BuySpecificPlant(){
                        try{
             const list= await axios.get(`http://localhost:3000/cart/single/${userid}`,{
                 headers : {
-                    'x-auth-token': jwtToken
+                    'x-auth-token': jwtToken,
+                     'Content-Type': 'application/json'
                 }
             })
             setplants(list.data)
-            console.log(list.data)
             setid(list.data.id)
+            setquantity(list.data.quantity)
         }catch(error){
            console.log("buy specific plant error:",error)
-           console.log(userid,"userid")
            console.log(id,"id")
         }
             }
@@ -40,58 +42,107 @@ function BuySpecificPlant(){
         }
     },[userid,jwtToken])
 
-useEffect(()=>{
-    const getplantdetails=async()=>{
-      try{
-        const details=await axios.get(`http://localhost:3000/plant/getplant/${id}`,{
-            headers : {
-                'x-auth-token' : jwtToken
-            }
-        })
-        setname(details.data.plant.PlantName)
-        setimg(details.data.plant.PlantImage)
-      }catch(err){
-        console.log("getplantdetails err:",err)
-      }
-    }
-    getplantdetails()
-},[id,jwtToken])
+    useEffect(() => {
+        const getplantdetails = async () => {
+            try {
+                const details = await axios.get(`http://localhost:3000/plant/getplant/${id}`, {
+                    headers: {
+                        "x-auth-token": jwtToken,
+                        "Content-Type": "application/json",
+                    },
+                });
+    
+                setname(details.data.plant.PlantName);
+                setimg(details.data.plant.PlantImage);
 
-const SendMail=async()=>{
-    try{
-        const responded= await axios.get(`http://localhost:3000/api/users/${userid}`,{
-            headers :{
-                'x-auth-token':localStorage.getItem("token")
+                const plantQuantity = details.data.plant.quantity || 1;
+                const plantCost = details.data.plant.PlantCost || 0;
+    
+                setTotalcost(plantQuantity * plantCost);
+            } catch (err) {
+                console.log("getplantdetails error:", err);
             }
+        };
+        if (userid) {
+            getplantdetails();
         }
-    )
-    const mail=responded.data.gmail
-        const postmail=await axios.post("http://localhost:3000/send-mail",{mail},{
-            headers : {
-                'x-auth-token': jwtToken
-            }
-        })
-        console.log(postmail.data,"postmail")
-        setclick(true);
-        toast.success("Payment Successful")
-    }catch(err){
-        console.log("frontend issue in sending mail:",err)
+    }, [id, jwtToken]);
+
+const SendMail = async () => {
+    try {
+        const response = await axios.get(`http://localhost:3000/api/users/${userid}`, {
+            headers: {
+                "x-auth-token": jwtToken,
+                "Content-Type": "application/json",
+            },
+        });
+
+        const userEmail = response.data.gmail;
+
+        const singlePurchase = {
+            id: id, 
+            quantity: quantity, 
+            PlantCost: Totalcost, 
+        };
+        const result = await axios.post("http://localhost:3000/single/send-mail",{
+            mail:userEmail,
+            SinglePurchase:singlePurchase
+        } , {
+            headers: {
+                "x-auth-token": jwtToken,
+                "Content-Type": "application/json",
+            },
+        });
+
+            console.log("Email sent successfully:", result.data);
+            setclick(true);
+            toast.success("Payment successful and email sent!");
     }
-    }
+        catch(error){
+            console.error("Error sending email:", error);
+            toast.error("Failed to send email or process payment.");
+        };
+};
+
 
     return(
-        <div>
-            <Navbar/>
-                        <div className="border-4 border-gray-300 rounded-3xl mt-10 p-10">
-                        <p className="font-bold text-2xl mb-5">{name}</p>
-                        <img src={img} alt="plant image" className="h-80 w-full object-cover rounded-3xl"/>
-                        <p><b>Each Plant Cost : </b>Rs.{plant.PlantCost}</p>
-                        <p><b>Number of plants : </b>{plant.quantity}</p>
-                        <p><b>Total Cost : </b>Rs.{plant.PlantCost*plant.quantity}</p>
-                        <button className="mt-10 bg-yellow-300 border-yellow-300" onClick={SendMail}>Proceed with Online Payment</button>
-                        </div>
-                        {click?(<p className="text-2xl text-orange-400 font-bold mt-2">Thanks for shopping</p>):(<p></p>)}
-        </div>
+        <div className="min-h-screen bg-gray-50">
+  <Navbar />
+  <div className="container mx-auto px-4 py-10">
+    {click && (
+      <div className="text-center mt-6">
+        <p className="text-2xl text-orange-500 font-bold">Thanks for shopping!</p>
+      </div>
+    )}
+    <div className="bg-white border border-gray-300 rounded-3xl shadow-lg p-6 md:p-10">
+      <p className="font-bold text-2xl text-gray-800 mb-5 text-center">{name}</p>
+      <img
+        src={img}
+        alt="Plant"
+        className="h-80 w-full object-cover rounded-3xl shadow-md mb-6"
+      />
+      <div className="space-y-3 text-gray-700">
+        <p>
+          <span className="font-semibold">Each Plant Cost:</span> ₹{plant.PlantCost}
+        </p>
+        <p>
+          <span className="font-semibold">Number of Plants:</span> {plant.quantity}
+        </p>
+        <p>
+          <span className="font-semibold">Total Cost:</span> ₹{plant.PlantCost * plant.quantity}
+        </p>
+      </div>
+      <div className="text-center mt-8">
+        <button
+          className="bg-yellow-400 text-gray-800 font-medium py-3 px-6 rounded-lg shadow-md hover:bg-yellow-500 transition duration-300"
+          onClick={SendMail}
+        >
+          Proceed with Online Payment
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
     )
 }
 export default BuySpecificPlant;

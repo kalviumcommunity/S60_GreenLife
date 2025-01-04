@@ -8,10 +8,11 @@ import axios from "axios";
 
 function SpecificPlant(){
 const {id}=useParams();
-// const history=useHistory();
 const[data,setdata]=useState(null);
+const[Plantdata,setplantsdata]=useState([]);
 const[quantity,setquantity]=useState(1);
 const[userid,setid]=useState("");
+const[FilteredData,setFilteredData]=useState([]);
 const[PlantCost,setcost]=useState(0);
 const nextPage=useNavigate();
 
@@ -25,6 +26,7 @@ useEffect(()=>{
             const respond=await axios.get(`http://localhost:3000/plant/getplant/${id}`,{
                 headers : {
                     'x-auth-token' : jwt,
+                     'Content-Type': 'application/json'
                 }
             })
             // console.log(respond.data)
@@ -43,7 +45,8 @@ const BuyNow =async()=>{
 try{
     const addData=await axios.post(`http://localhost:3000/cart/single/post/${userid}`,{id : id, PlantCost : PlantCost, quantity: quantity},{
         headers : {
-            'x-auth-token' : jwt
+            'x-auth-token' : jwt,
+             'Content-Type': 'application/json'
         }
     })
     console.log("added successfully",addData)
@@ -81,10 +84,10 @@ const AddtoCart=async (event)=>{
     const checkdata= await axios.get(`http://localhost:3000/cart/get/${userid}`,{
         headers : {
             'x-auth-token' : jwt,
+             'Content-Type': 'application/json'
         }
     })
    const cartstatus=checkdata.data;
-//    console.log(cartstatus,"cartstatus")
    const savedplant=cartstatus.plants.find(item=>item.id===id)
    if(savedplant){
     console.log("Need to update successfully")
@@ -92,15 +95,16 @@ const AddtoCart=async (event)=>{
     const postcart= await axios.post(`http://localhost:3000/cart/post/${userid}`,{plants : [{id, quantity : updatecount, PlantCost}]},{
         headers : {
             'x-auth-token' : jwt,
+             'Content-Type': 'application/json'
         }
         })
     setquantity(updatecount)
     toast.success("Plant added to garden")
-    console.log("updated plant count successfully",postcart.data)
    }else{
     const postcart= await axios.post(`http://localhost:3000/cart/post/${userid}`,{plants : [{id, quantity : quantity,PlantCost}]},{
     headers : {
         'x-auth-token' : jwt,
+         'Content-Type': 'application/json'
     }
     })
     console.log("plants added to garden successfully",postcart.data)
@@ -112,9 +116,9 @@ const AddtoCart=async (event)=>{
             const postcart= await axios.post(`http://localhost:3000/cart/post/${userid}`,{plants : [{id, quantity : 1, PlantCost}]},{
                 headers : {
                     'x-auth-token' : jwt,
+                     'Content-Type': 'application/json'
                 }
                 })
-                console.log("new cart created successfully",postcart.data)
                 toast.success("Plant added to garden")
         }catch(err){
             console.log("cannot create new cart",err)
@@ -132,53 +136,87 @@ const SubCount=()=>{
 }
 
     return(
-        <div>
-            <Navbar/>
-        <div>
-           {data!==null?
-           (<div className="flex">
-            <div>
-             <h2 className="p-7 mt-5 text-left text-4xl">{data.PlantName}</h2> 
-             <img src={data.PlantImage} alt="Plant Image" className="h-96 rounded-3xl"/>
-             <p className="text-red-600 font-bold text-2xl text-left mr-10 flex">Rs.{data.PlantCost}</p>
-             <div className="flex justify-center">
-              <button className="text-2xl px-1 py-1 mr-5" onClick={AddCount}>+</button>
-              <p>{quantity}</p>
-              <button className="text-2xl px-1 py-1 ml-5" onClick={SubCount}>-</button>
-             </div>
-             <button className="w-93 mt-5 bg-yellow-400 text-left" onClick={AddtoCart}>Plant in my garden</button><br></br>
-             <button className="mt-5 bg-orange-500 px-14" onClick={BuyNow}>Buy Now</button>
-             </div>
-              <div className="mt-20 ml-10">
-                <div className="border-b-green-600 border-r-green-600 border-4 p-2">
-                <p className="text-green-500">🌿Plant Uses and Benefits🌿</p>
-                <p>{data.Uses}</p>
-                </div>
-                <div className="border-b-green-600 border-r-green-600 border-4 p-2 mt-5">
-                    <p className="text-blue-500">💧Water Requirement💧</p>
-                    <p>{data.WateringTips}</p>
-                </div>
-                <div className="border-b-green-600 border-r-green-600 border-4 p-2 mt-5">
-                    <p className="text-yellow-500">🌞Sunlight Requirement🌤️</p>
-                    <p>{data.WateringTips}</p>
-                </div>
-                <div className="border-b-green-600 border-r-green-600 border-4 p-2 mt-5">
-                    <p className="text-orange-700">⚠️Toxicity Levels</p>
-                    <p>{data.Toxicity}</p>
-                </div>
-                <Link to={data.ReferenceLink}>
-                <div className="border-b-green-600 border-r-green-600 border-4 p-2 mt-5">
-                    <p>Need more Information, Refer Wikepedia📚</p>
-                    <p>{data.ReferenceLink}</p>
-                </div>
-                </Link>
-              </div>
-           </div>)
-           :
-           (<div>Loading...</div>)
-           }
+<div className="min-h-screen bg-gray-50">
+  <Navbar />
+
+  <div className="container mx-auto px-4 py-14">
+    {data !== null ? (
+      <div className="flex flex-col md:flex-row items-start gap-8">
+        <div className="w-full md:w-1/2">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-4">{data.PlantName}</h2>
+          <img
+            src={data.PlantImage}
+            alt="Plant"
+            className="h-64 w-full object-cover rounded-lg shadow-sm"
+          />
+          <p className="text-lg font-medium text-red-600 mt-4">₹{data.PlantCost}</p>
+
+          <div className="flex items-center justify-center mt-4 space-x-4">
+            <button
+              className="text-lg px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 transition"
+              onClick={AddCount}
+            >
+              +
+            </button>
+            <p className="text-base">{quantity}</p>
+            <button
+              className="text-lg px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 transition"
+              onClick={SubCount}
+            >
+              -
+            </button>
+          </div>
+
+          <div className="mt-6 flex flex-col gap-3">
+            <button
+              className="w-full py-2 bg-yellow-400 text-base font-medium rounded shadow-sm hover:bg-yellow-500 transition"
+              onClick={AddtoCart}
+            >
+              Plant in My Garden
+            </button>
+            <button
+              className="w-full py-2 bg-orange-500 text-base font-medium rounded shadow-sm hover:bg-orange-600 transition"
+              onClick={BuyNow}
+            >
+              Buy Now
+            </button>
+          </div>
         </div>
+
+        <div className="w-full md:w-1/2 space-y-4">
+          <div className="p-4 border-l-4 border-green-500 bg-white rounded-md shadow-sm">
+            <p className="text-base font-semibold text-green-600">🌿 Plant Uses and Benefits</p>
+            <p className="text-sm text-gray-700 mt-2">{data.Uses}</p>
+          </div>
+
+          <div className="p-4 border-l-4 border-blue-500 bg-white rounded-md shadow-sm">
+            <p className="text-base font-semibold text-blue-500">💧 Water Requirement</p>
+            <p className="text-sm text-gray-700 mt-2">{data.WateringTips}</p>
+          </div>
+
+          <div className="p-4 border-l-4 border-yellow-500 bg-white rounded-md shadow-sm">
+            <p className="text-base font-semibold text-yellow-500">🌞 Sunlight Requirement</p>
+            <p className="text-sm text-gray-700 mt-2">{data.NeedOfSunlight}</p>
+          </div>
+
+          <div className="p-4 border-l-4 border-orange-500 bg-white rounded-md shadow-sm">
+            <p className="text-base font-semibold text-orange-600">⚠️ Toxicity Levels</p>
+            <p className="text-sm text-gray-700 mt-2">{data.Toxicity}</p>
+          </div>
+
+          <Link to={data.ReferenceLink} className="block">
+            <div className="p-4 border-l-4 border-purple-500 bg-white rounded-md shadow-sm hover:bg-gray-100 transition">
+              <p className="text-base font-semibold text-purple-600">📚 More Information</p>
+              <p className="text-sm text-blue-500 mt-1 underline">{data.ReferenceLink}</p>
+            </div>
+          </Link>
         </div>
+      </div>
+    ) : (
+      <div className="text-center text-lg font-medium text-gray-600">Loading...</div>
+    )}
+  </div>
+</div>
     )
 }
 export default SpecificPlant;
